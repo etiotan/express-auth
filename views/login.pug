@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 Login
+  
+  if error
+    p ERROR: #{ error }
+  
+  form(method="post")
+    input(type="hidden", name="_csrf", value=csrfToken)
+    span Email:
+    input(type="text", name="email", required=true)
+    br
+    span Password:
+    input(type="text", name="password", required=true)
+    br      
+    input(type="submit" name="Login")
