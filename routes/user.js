@@ -24,14 +24,14 @@ router.post('/signup', function(req,res,next){
       res.render('signup', { error: "Email Already In Use!"})
     }else{
       console.log("saved")
-      res.redirect('/u/login')
+      res.redirect('/u/dashboard')
     }
   })
 
   })
 
 // Login
-  /* GET home page. */
+
   router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Login', csrfToken: req.csrfToken() });
   });
@@ -54,7 +54,7 @@ router.post('/signup', function(req,res,next){
   })
 
 //dashboard
-/* GET home page. */
+
 router.get('/dashboard', function(req, res, next) {
   if(req.session && req.session.user){
     User.findOne({email:req.session.user.email}, function(err,user){
