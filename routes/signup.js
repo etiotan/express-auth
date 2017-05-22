@@ -23,7 +23,7 @@ router.post('/', function(req,res,next){
       res.render('signup', { error: "Email Already In Use!"})
     }else{
       console.log("saved")
-      res.redirect('/dashboard')
+      res.redirect('/login')
     }
   })
 

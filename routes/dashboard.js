@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user')
-var session = require('client-sessions')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -18,5 +17,11 @@ router.get('/', function(req, res, next) {
   }
 
 });
+
+router.get('/logout', function(req, res){
+  req.session.reset();
+  res.redirect('/');
+})
+
 
 module.exports = router;

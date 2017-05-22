@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user')
-var session = require('client-sessions')
+
 var bcrypt = require('bcryptjs');
 var csrf = require('csurf')
 /* GET home page. */

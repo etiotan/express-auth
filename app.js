@@ -14,7 +14,7 @@ var signup = require('./routes/signup');
 var login = require('./routes/login');
 var dashboard = require('./routes/dashboard')
 
-
+mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost/newauth')
 var app = express();
 
@@ -41,12 +41,6 @@ app.use('/', index);
 app.use('/signup', signup)
 app.use('/login', login)
 app.use('/dashboard', dashboard)
-
-
-app.get('/logout', function(req, res){
-  req.session.reset();
-  res.redirect('/');
-})
 
 
 // catch 404 and forward to error handler
