@@ -10,7 +10,7 @@ var csrf = require('csurf')
 
 
 var index = require('./routes/index');
-var user = require('./routes/user');
+
 
 
 mongoose.Promise = require('bluebird');
@@ -37,7 +37,6 @@ app.use(session({
 }))
 app.use(csrf()) //must be after pasrser and session
 app.use('/', index);
-app.use('/u', user)
 
 
 // catch 404 and forward to error handler
