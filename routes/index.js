@@ -19,7 +19,8 @@ router.post('/login', user.loginPost)
 
 //dashboard
 
-router.get('/dashboard', user.dashboard);
+router.get('/dashboard', user.dashboardGet);
+router.post('/dashboard', user.dashboardPost);
 
 router.get('/logout', user.logout);
 

@@ -1,12 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user')
+var Merchandise = require('../models/merchandise')
 var bcrypt = require('bcryptjs');
 var csrf = require('csurf')
 
 
 exports.index = function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  var merchandise = Merchandise.find({},function(err, doc){
+    if(err) throw err;
+    console.log(doc)
+   res.render('index', { title: 'Express', merchandise: doc });
+  })
+  console.log(req.session.user)
 }
 
 
@@ -22,7 +28,7 @@ exports.signupPost = function(req, res, next) {
   var user = new User({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: hash})
   user.save(function(err) {
     if (err) {
-      res.render('signup', {error: "Email Already In Use!"})
+      res.render('signup', {error: "Email Already In Use!", csrfToken: req.csrfToken()})
     } else {
       console.log("saved")
       req.session.user = user; //alows me to be redirected to dashboard
@@ -56,7 +62,7 @@ exports.loginPost = function(req, res) {
   })
 }
 
-exports.dashboard = function(req, res, next) {
+exports.dashboardGet = function(req, res, next) {
   if (req.session && req.session.user) {
     User.findOne({
       email: req.session.user.email
@@ -66,11 +72,30 @@ exports.dashboard = function(req, res, next) {
         res.redirect('/login')
       } else {
         res.locals.user = user;
-        res.render('dashboard', {title: req.session.user.email});
+        res.render('dashboard', {title: req.session.user.email, csrfToken: req.csrfToken()});
       }
     })
   }
 }
+
+exports.dashboardPost = function(req, res, next) {
+  if (req.session && req.session.user) {
+  var merchandise = new Merchandise({email: req.session.user.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
+  merchandise.save(function(err){
+    if(err){
+      res.send("Error, please fill everything out")
+    }else{
+      console.log('listed')
+      res.redirect('/')
+    }
+  })
+
+
+
+
+  }
+}
+
 exports.logout = function(req, res) {
   req.session.reset();
   res.redirect('/');

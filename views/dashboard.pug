@@ -12,3 +12,16 @@ block content
   p Sign Up Date: #{user.date}
   a(href='/logout')
     button.btn Sign Out
+  
+  form(method="post")
+    input(type="hidden", name="_csrf", value=csrfToken)
+    span Item:
+    input(type="text", name="itemName", required=true)
+    br
+    span Description:
+    input(type="text", name="description", required=true)
+    br
+    span Price:
+    input(type="text", name="price", required=true)
+    br
+    input.btn(type="submit" value="List") 
