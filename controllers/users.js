@@ -12,7 +12,6 @@ exports.index = function(req, res, next) {
     console.log(doc)
    res.render('index', { title: 'Express', merchandise: doc });
   })
-  console.log(req.session.user)
 }
 
 
@@ -24,7 +23,7 @@ exports.signupGet = function(req, res, next) {
 }
 
 exports.signupPost = function(req, res, next) {
-  var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
+  var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltmoSync(10))
   var user = new User({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: hash})
   user.save(function(err) {
     if (err) {
