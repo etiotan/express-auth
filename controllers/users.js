@@ -7,7 +7,7 @@ var csrf = require('csurf')
 
 
 exports.index = function(req, res, next) {
-   if(req.session && req.session.user){
+   if(req.session && req.session.users){
         res.render('loggedin', { title: 'Logged In'});
    }else{
         res.render('index', { title: 'Please Log in First'});
@@ -38,7 +38,7 @@ exports.signupPost = function(req, res, next) {
       res.render('signup', {error: "Email Already In Use!", csrfToken: req.csrfToken()})
     } else {
       console.log("saved")
-      req.session.user = user; //alows me to be redirected to dashboard
+      req.session.users = user; //alows me to be redirected to dashboard
       res.redirect('/dashboard')
     }
   })
@@ -60,7 +60,7 @@ exports.loginPost = function(req, res) {
       res.render('login', {error: "Invalid Email or Password!", csrfToken: req.csrfToken()})
     } else {
       if (bcrypt.compareSync(req.body.password, user.password)) {
-        req.session.user = user; //set-cookie: session= asdfals123, its gonna hav user email/password
+        req.session.users = user; //set-cookie: session= asdfals123, its gonna hav user email/password
         res.redirect('/dashboard');
       } else {
         res.render('login', {error: "Invalid Email or Password!"})
@@ -70,9 +70,9 @@ exports.loginPost = function(req, res) {
 }
 
 exports.dashboardGet = function(req, res, next) {
-  if (req.session && req.session.user) {
+  if (req.session && req.session.users) {
     User.findOne({
-      email: req.session.user.email
+      email: req.session.users.email
     }, function(err, user) {
       if (!user) {
         res.session.reset()
@@ -88,8 +88,8 @@ exports.dashboardGet = function(req, res, next) {
 }
 
 exports.dashboardPost = function(req, res, next) {
-  if (req.session && req.session.user) {
-  var merchandise = new Merchandise({email: req.session.user.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
+  if (req.session && req.session.users) {
+  var merchandise = new Merchandise({email: req.session.users.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
   merchandise.save(function(err){
     if(err){
       res.send("Error, please fill everything out")
