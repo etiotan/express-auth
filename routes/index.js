@@ -7,6 +7,8 @@ var user = require('../controllers/users')
 /* GET home page. */
 router.get('/', user.index);
 
+//listings
+router.get('/listing',user.listing);
 
 // signup
 router.get('/signup',user.signupGet);

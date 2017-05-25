@@ -7,10 +7,18 @@ var csrf = require('csurf')
 
 
 exports.index = function(req, res, next) {
+   if(req.session.user){
+        res.render('loggedin', { title: 'Logged In'});
+   }else{
+        res.render('index', { title: 'Please Log in First'});
+   }
+}
+
+exports.listing = function(req, res, next){
   var merchandise = Merchandise.find({},function(err, doc){
     if(err) throw err;
     console.log(doc)
-   res.render('index', { title: 'Express', merchandise: doc });
+   res.render('listing', { title: 'Listings', merchandise: doc });
   })
 }
 
@@ -23,7 +31,7 @@ exports.signupGet = function(req, res, next) {
 }
 
 exports.signupPost = function(req, res, next) {
-  var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltmoSync(10))
+  var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
   var user = new User({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: hash})
   user.save(function(err) {
     if (err) {
@@ -49,7 +57,7 @@ exports.loginPost = function(req, res) {
     email: req.body.email
   }, function(err, user) {
     if (!user) {
-      res.render('login', {error: "Invalid Email or Password!"})
+      res.render('login', {error: "Invalid Email or Password!", csrfToken: req.csrfToken()})
     } else {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         req.session.user = user; //set-cookie: session= asdfals123, its gonna hav user email/password
@@ -67,13 +75,15 @@ exports.dashboardGet = function(req, res, next) {
       email: req.session.user.email
     }, function(err, user) {
       if (!user) {
-        req.session.reset()
+        res.session.reset()
         res.redirect('/login')
       } else {
-        res.locals.user = user;
-        res.render('dashboard', {title: req.session.user.email, csrfToken: req.csrfToken()});
+        res.locals.user = user
+        res.render('dashboard', {user: user, csrfToken: req.csrfToken()});
       }
     })
+  }else{
+    res.redirect('/login')
   }
 }
 

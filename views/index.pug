@@ -1,18 +1,6 @@
 extends layout
 
 block content
-  h1 Auth
-  p Welcome to Auth page please <a href="/login">login</a> or <a href="/signup">signup</a>
+  h1 Please Log In
+  h3 <a href="/login">login</a> or <a href="/signup">signup</a>
   
-  table
-    tr
-      th Name
-      th Description
-      th Price
-      th Contact
-    each items in merchandise
-      tr  
-        td #{items.itemName}
-        td #{items.description}
-        td #{items.price}
-        td #{items.email}

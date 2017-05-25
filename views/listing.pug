@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 Listings
+  table
+    tr
+      th Name
+      th Description
+      th Price
+      th Contact
+    each items in merchandise
+      tr  
+        td #{items.itemName}
+        td #{items.description}
+        td #{items.price}
+        td #{items.email}
