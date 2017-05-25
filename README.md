@@ -9,6 +9,7 @@ Building from scratch, integrating craigslist/kijiji type web application. Follo
 1. Users are able to register accounts
 2. Sessions created by login/signups determine which views will be rendered
 3. Users are able to list items, and each item have their own page in a unique url
+4. A good and better Ui than craigslist styled mostly with MaterializeCSS and SASS (comingsoon)
 
 ## Tools
     "bcryptjs": "^2.4.3",
