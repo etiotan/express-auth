@@ -9,8 +9,12 @@ block content
       th Price
       th Contact
     each items in merchandise
+      - var href = "listing/" + items.id
       tr  
-        td #{items.itemName}
+        td
+          a(href=href) #{items.itemName} 
         td #{items.description}
         td #{items.price}
         td #{items.email}
+        
+    

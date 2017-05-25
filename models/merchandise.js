@@ -1,8 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+var shortid = require('shortid');
 
 var Merchandise = mongoose.model('Merchandise', new Schema({
+  _id: {
+    type: String,
+    'default': shortid.generate
+  },
   email: {type: String, ref: 'User'},
   itemName: {type: String, required: true},
   description: {type: String, required: true},

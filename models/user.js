@@ -1,8 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var shortid = require('shortid');
 
 
 var User = mongoose.model('User', new Schema({
+  _id: {
+    type: String,
+    'default': shortid.generate
+  },
   firstName: String,
   lastName: String,
   email: {type: String, unique: true},
