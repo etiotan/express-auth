@@ -4,6 +4,12 @@
 
 Building from scratch, integrating craigslist/kijiji type web application. Following as many conventions as possible.
 
+## Functionality
+
+1. Users are able to register accounts
+2. Sessions created by login/signups determine which views will be rendered
+3. Users are able to list items, and each item have their own page in a unique url
+
 ## Tools
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.0",
