@@ -7,7 +7,7 @@ var csrf = require('csurf')
 
 
 exports.index = function(req, res, next) {
-   if(req.session.user){
+   if(req.session && req.session.user){
         res.render('loggedin', { title: 'Logged In'});
    }else{
         res.render('index', { title: 'Please Log in First'});
