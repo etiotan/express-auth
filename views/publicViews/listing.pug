@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
   h1 Listings
@@ -8,6 +8,7 @@ block content
       th Description
       th Price
       th Contact
+      th Posted
     each items in merchandise
       - var href = "listing/" + items.id
       tr  
@@ -16,5 +17,5 @@ block content
         td #{items.description}
         td #{items.price}
         td #{items.email}
-        
+        td #{items.date}
     

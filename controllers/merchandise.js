@@ -4,7 +4,7 @@ var User = require('../models/user')
 var Merchandise = require('../models/merchandise')
 var bcrypt = require('bcryptjs');
 var csrf = require('csurf')
-var shortid = require('shortid')
+
 
 
 exports.itemPage = function(req,res,next) {
@@ -12,7 +12,18 @@ exports.itemPage = function(req,res,next) {
     if (err)
       throw err;
     console.log(doc)
-    res.render('itemPage', {
+    res.render('./publicViews/itemPage', {
+      title: 'Listings',
+      merchandise: doc
+    });
+  })
+}
+exports.listing = function(req, res, next) {
+  Merchandise.find({}, function(err, doc) {
+    if (err)
+      throw err;
+    console.log(doc)
+    res.render('./publicViews/listing', {
       title: 'Listings',
       merchandise: doc
     });

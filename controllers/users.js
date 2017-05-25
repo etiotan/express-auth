@@ -8,26 +8,15 @@ var shortid = require('shortid')
 
 exports.index = function(req, res, next) {
   if (req.session && req.session.users) {
-    res.render('loggedin', {title: 'Logged In'});
+    res.render('./userViews/loggedin', {title: 'Logged In'});
   } else {
-    res.render('index', {title: 'Please Log in First'});
+    res.render('./publicViews/index', {title: 'Please Log in First'});
   }
 }
 
-exports.listing = function(req, res, next) {
-  Merchandise.find({}, function(err, doc) {
-    if (err)
-      throw err;
-    console.log(doc)
-    res.render('listing', {
-      title: 'Listings',
-      merchandise: doc
-    });
-  })
-}
 
 exports.signupGet = function(req, res, next) {
-  res.render('signup', {
+  res.render('./publicViews/signup', {
     title: 'Sign Up',
     csrfToken: req.csrfToken()
   })
@@ -38,7 +27,7 @@ exports.signupPost = function(req, res, next) {
   var user = new User({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: hash})
   user.save(function(err) {
     if (err) {
-      res.render('signup', {
+      res.render('./publicViews/ignup', {
         error: "Email Already In Use!",
         csrfToken: req.csrfToken()
       })
@@ -52,7 +41,7 @@ exports.signupPost = function(req, res, next) {
 }
 
 exports.loginGet = function(req, res, next) {
-  res.render('login', {
+  res.render('./publicViews/login', {
     title: 'Login',
     csrfToken: req.csrfToken()
   });
@@ -88,7 +77,7 @@ exports.dashboardGet = function(req, res, next) {
         res.redirect('/login')
       } else {
         res.locals.user = user
-        res.render('dashboard', {
+        res.render('./userViews/dashboard', {
           user: user,
           csrfToken: req.csrfToken()
         });
@@ -101,7 +90,7 @@ exports.dashboardGet = function(req, res, next) {
 
 exports.dashboardPost = function(req, res, next) {
   if (req.session && req.session.users) {
-    var merchandise = new Merchandise({url: shortid.generate(), email: req.session.users.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
+    var merchandise = new Merchandise({email: req.session.users.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
     merchandise.save(function(err) {
       if (err) {
         res.send("Error, please fill everything out")
