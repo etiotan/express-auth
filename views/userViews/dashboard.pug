@@ -43,4 +43,6 @@ block content
         td #{items.description}
         td #{items.price}
         td #{items.date}
-        td Delete
+        td
+          //- form(method="post" action="#")
+          input(type='submit', value='delete')
