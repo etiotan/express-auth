@@ -14,7 +14,6 @@ exports.index = function(req, res, next) {
   }
 }
 
-
 exports.signupGet = function(req, res, next) {
   res.render('./publicViews/signup', {
     title: 'Sign Up',
@@ -66,7 +65,7 @@ exports.loginPost = function(req, res) {
     }
   })
 }
-
+//fills the dashboard
 exports.dashboardGet = function(req, res, next) {
   if (req.session && req.session.users) {
     User.findOne({
@@ -76,11 +75,16 @@ exports.dashboardGet = function(req, res, next) {
         res.session.reset()
         res.redirect('/login')
       } else {
-        res.locals.user = user
-        res.render('./userViews/dashboard', {
-          user: user,
-          csrfToken: req.csrfToken()
-        });
+        Merchandise.find({
+          owner: req.session.users._id
+        }, function(err, merc) {
+          res.locals.user = user
+          res.render('./userViews/dashboard', {
+            user: user,
+            merc: merc,
+            csrfToken: req.csrfToken()
+          });
+        })
       }
     })
   } else {
@@ -90,7 +94,7 @@ exports.dashboardGet = function(req, res, next) {
 
 exports.dashboardPost = function(req, res, next) {
   if (req.session && req.session.users) {
-    var merchandise = new Merchandise({email: req.session.users.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
+    var merchandise = new Merchandise({owner: req.session.users._id, email: req.session.users.email, itemName: req.body.itemName, description: req.body.description, price: req.body.price})
     merchandise.save(function(err) {
       if (err) {
         res.send("Error, please fill everything out")

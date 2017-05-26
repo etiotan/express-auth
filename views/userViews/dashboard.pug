@@ -27,3 +27,21 @@ block content
     input(type="text", name="price", required=true)
     br
     input.btn(type="submit" value="List") 
+    
+  h4 My Items
+  table
+    tr
+      th Name
+      th Description
+      th Price
+      th Contact
+      th Posted
+    each items in merc
+      - var href = "listing/" + items.id
+      tr  
+        td
+          a(href=href) #{items.itemName} 
+        td #{items.description}
+        td #{items.price}
+        td #{items.email}
+        td #{items.date}

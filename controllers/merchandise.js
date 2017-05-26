@@ -6,7 +6,6 @@ var bcrypt = require('bcryptjs');
 var csrf = require('csurf')
 
 
-
 exports.itemPage = function(req,res,next) {
   Merchandise.find({_id:req.params.id}, function(err, doc) {
     if (err)
