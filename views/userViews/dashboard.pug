@@ -34,7 +34,6 @@ block content
       th Name
       th Description
       th Price
-      th Contact
       th Posted
     each items in merc
       - var href = "listing/" + items.id
@@ -43,5 +42,5 @@ block content
           a(href=href) #{items.itemName} 
         td #{items.description}
         td #{items.price}
-        td #{items.email}
         td #{items.date}
+        td Delete
