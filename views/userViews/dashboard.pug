@@ -37,6 +37,7 @@ block content
       th Posted
     each items in merc
       - var href = "listing/" + items.id
+      - var id = items.id
       tr  
         td
           a(href=href) #{items.itemName} 
@@ -44,5 +45,11 @@ block content
         td #{items.price}
         td #{items.date}
         td
-          //- form(method="post" action="#")
-          input(type='submit', value='delete')
+          form(method="post" action="/delete/"+ id) //-
+            input(type="hidden", name="_csrf", value=csrfToken)
+            input.btn(type="submit" value="Delete") 
+            //- delete should be handled with post requests, gets should never change state.
+            
+          
+          
+          

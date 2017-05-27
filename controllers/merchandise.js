@@ -28,3 +28,10 @@ exports.listing = function(req, res, next) {
     });
   })
 }
+exports.deleteListing = function(req, res, next){
+  Merchandise.findByIdAndRemove(req.params.id, function (err,merc){
+        if(err) throw err;
+        res.redirect('/dashboard')
+        console.log(merc)
+     });
+}

@@ -27,9 +27,11 @@ router.post('/login', user.loginPost)
 
 router.get('/dashboard', user.dashboardGet);
 router.post('/dashboard', user.dashboardPost);
-
 router.get('/logout', user.logout);
 
+//del listing
+
+router.post('/delete/:id', merchandise.deleteListing) //get because we are getting the URL
 
 
 module.exports = router;
