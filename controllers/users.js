@@ -60,13 +60,14 @@ exports.loginPost = function(req, res) {
         req.session.users = user; //set-cookie: session= asdfals123, its gonna hav user email/password sesion was enabled in the middleware.
         res.redirect('/dashboard');
       } else {
-        res.render('publicViews/login', {error: "Invalid Email or Password!",csrfToken: req.csrfToken()})
+        res.render('publicViews/login', {
+          error: "Invalid Email or Password!",
+          csrfToken: req.csrfToken()
+        })
       }
     }
   })
 }
-
-
 
 //fills the dashboard
 exports.dashboardGet = function(req, res, next) {

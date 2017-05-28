@@ -10,13 +10,13 @@ router.get('/', user.index);
 
 //listings
 
-router.get('/listing',merchandise.listing);
+router.get('/listing', merchandise.listing);
 router.get('/listing/:id', merchandise.itemPage)
 
 // signup
 
-router.get('/signup',user.signupGet);
-router.post('/signup',user.signupPost);
+router.get('/signup', user.signupGet);
+router.post('/signup', user.signupPost);
 
 // Login
 
