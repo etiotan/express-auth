@@ -26,7 +26,7 @@ exports.signupPost = function(req, res, next) {
   var user = new User({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: hash})
   user.save(function(err) {
     if (err) {
-      res.render('./publicViews/ignup', {
+      res.render('./publicViews/signup', {
         error: "Email Already In Use!",
         csrfToken: req.csrfToken()
       })
@@ -51,13 +51,13 @@ exports.loginPost = function(req, res) {
     email: req.body.email
   }, function(err, user) {
     if (!user) {
-      res.render('login', {
+      res.render('publicViews/login', {
         error: "Invalid Email or Password!",
         csrfToken: req.csrfToken()
       })
     } else {
       if (bcrypt.compareSync(req.body.password, user.password)) {
-        req.session.users = user; //set-cookie: session= asdfals123, its gonna hav user email/password
+        req.session.users = user; //set-cookie: session= asdfals123, its gonna hav user email/password sesion was enabled in the middleware.
         res.redirect('/dashboard');
       } else {
         res.render('login', {error: "Invalid Email or Password!"})
