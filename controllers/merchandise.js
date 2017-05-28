@@ -6,19 +6,25 @@ var bcrypt = require('bcryptjs');
 var csrf = require('csurf')
 
 exports.itemPage = function(req, res, next) {
-
   Merchandise.find({
     _id: req.params.id
   }, function(err, doc) {
-    if (err) throw err;
-    if (req.session.users._id === doc[0].owner) {
-      res.render('./userViews/itemPage', {
-        title: 'My Listing',
-        merchandise: doc,
-        csrfToken: req.csrfToken()
-      });
-    }
-    else {
+    if (err) handleError(err);
+    if (req.session && req.session.users) {
+      if (req.session.users._id === doc[0].owner) {
+        res.render('./userViews/itemPage', {
+          title: 'My Listing',
+          merchandise: doc,
+          csrfToken: req.csrfToken()
+        });
+      } else {
+        res.render('./publicViews/itemPage', {
+          title: 'Public Listings',
+          merchandise: doc
+        });
+      }
+    } else {
+      //fixes problem of no session ID, If i don't want them to view it without logging in just replace res.render with res.redirect('/login')
       res.render('./publicViews/itemPage', {
         title: 'Public Listings',
         merchandise: doc
@@ -30,7 +36,6 @@ exports.listing = function(req, res, next) {
   Merchandise.find({}, function(err, doc) {
     if (err)
       throw err;
-    console.log(doc)
     res.render('./publicViews/listing', {
       title: 'Listings',
       merchandise: doc
