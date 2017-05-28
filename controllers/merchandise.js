@@ -20,7 +20,7 @@ exports.itemPage = function(req, res, next) {
       console.log(doc)
     } else {
       res.render('./publicViews/itemPage', {
-        title: 'Listings',
+        title: 'Public Listings',
         merchandise: doc
       });
     }
@@ -44,4 +44,18 @@ exports.deleteListing = function(req, res, next) {
     res.redirect('/dashboard')
     console.log(merc)
   });
+}
+
+exports.updateListing = function(req, res, next){
+  Merchandise.findByIdAndUpdate(req.params.id,
+    {$set: {
+      itemName: req.body.itemName,
+      description: req.body.description,
+      price: req.body.price
+    }
+  }, {new: true}, function(err, merc){
+    if(err) return handleError(err);
+    console.log(merc)
+    res.redirect('/listing/'+ req.params.id)
+  })
 }

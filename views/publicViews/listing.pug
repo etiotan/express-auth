@@ -10,10 +10,9 @@ block content
       th Contact
       th Posted
     each items in merchandise
-      - var href = "listing/" + items.id
       tr  
         td
-          a(href=href) #{items.itemName} 
+          a(href="listing/" + items.id) #{items.itemName} 
         td #{items.description}
         td #{items.price}
         td #{items.email}

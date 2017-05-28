@@ -9,8 +9,21 @@ block content
     li Price: #{merchandise[0].price}
     li Email: #{merchandise[0].email}
     li Posted: #{merchandise[0].date}
-    -var identity = merchandise[0].id
-    form(method="post" action="/delete/"+ identity)
+    form(method="post" action="/delete/"+ merchandise[0].id)
       input(type="hidden", name="_csrf", value=csrfToken)
       input.btn(type="submit" value="Delete") 
       //- delete should be handled with post requests, gets should never change state.
+  
+  h2 Update Listings
+  form(method="post" action="/update/" + merchandise[0].id)
+    input(type="hidden", name="_csrf", value=csrfToken)
+    span Item Name:
+    input(type="text", name="itemName", required=true value=merchandise[0].itemName)
+    br
+    span Description:
+    input(type="text", name="description", required=true value=merchandise[0].description)
+    br
+    span Price:
+    input(type="text", name="price", required=true value=merchandise[0].price)
+    br  
+    input.btn(type="submit" value="update!")
