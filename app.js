@@ -35,7 +35,7 @@ app.use(session({
   duration: 30*60*1000, //how long before logged out
   activeDuration: 5*60*1000
 }))
-app.use(csrf()) //must be after pasrser and session
+app.use(csrf()) //must be after pasrser and session, must use for every input
 app.use('/', index);
 
 

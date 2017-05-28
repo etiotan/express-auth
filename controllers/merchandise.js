@@ -5,16 +5,25 @@ var Merchandise = require('../models/merchandise')
 var bcrypt = require('bcryptjs');
 var csrf = require('csurf')
 
-
-exports.itemPage = function(req,res,next) {
-  Merchandise.find({_id:req.params.id}, function(err, doc) {
+exports.itemPage = function(req, res, next) {
+  Merchandise.find({
+    _id: req.params.id
+  }, function(err, doc) {
     if (err)
       throw err;
-    console.log(doc)
-    res.render('./publicViews/itemPage', {
-      title: 'Listings',
-      merchandise: doc
-    });
+    if (req.session.users._id === doc[0].owner) {
+      res.render('./userViews/itemPage', {
+        title: 'My Listing',
+        merchandise: doc,
+        csrfToken: req.csrfToken()
+      });
+      console.log(doc)
+    } else {
+      res.render('./publicViews/itemPage', {
+        title: 'Listings',
+        merchandise: doc
+      });
+    }
   })
 }
 exports.listing = function(req, res, next) {
@@ -28,10 +37,11 @@ exports.listing = function(req, res, next) {
     });
   })
 }
-exports.deleteListing = function(req, res, next){
-  Merchandise.findByIdAndRemove(req.params.id, function (err,merc){
-        if(err) throw err;
-        res.redirect('/dashboard')
-        console.log(merc)
-     });
+exports.deleteListing = function(req, res, next) {
+  Merchandise.findByIdAndRemove(req.params.id, function(err, merc) {
+    if (err)
+      throw err;
+    res.redirect('/dashboard')
+    console.log(merc)
+  });
 }

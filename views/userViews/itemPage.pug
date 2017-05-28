@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  h1
+    |OWNER, so you are able to edit/delete it
+  ul  
+    li Item Name: #{merchandise[0].itemName} 
+    li Description: #{merchandise[0].description}
+    li Price: #{merchandise[0].price}
+    li Email: #{merchandise[0].email}
+    li Posted: #{merchandise[0].date}
+    -var identity = merchandise[0].id
+    form(method="post" action="/delete/"+ identity)
+      input(type="hidden", name="_csrf", value=csrfToken)
+      input.btn(type="submit" value="Delete") 
+      //- delete should be handled with post requests, gets should never change state.

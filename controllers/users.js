@@ -102,7 +102,6 @@ exports.dashboardPost = function(req, res, next) {
       if (err) {
         res.send("Error, please fill everything out")
       } else {
-
         res.redirect('/listing/' + merchandise._id)
       }
     })
