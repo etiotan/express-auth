@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); //makes data avail for request.body
@@ -14,7 +14,10 @@ var index = require('./routes/index');
 
 
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/newauth')
+// mongoose.connect('mongodb://localhost/newaut')
+mongoose.connect('
+mongodb://<dbuser>:<dbpassword>@ds155961.mlab.com:55961/heroku_nbsjk1bq
+')
 var app = express();
 
 // view engine setup

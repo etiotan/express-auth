@@ -10,7 +10,7 @@ exports.itemPage = function(req, res, next) {
     _id: req.params.id
   }, function(err, doc) {
     if (err) handleError(err);
-    if (req.session && req.session.users) {
+    if (req.session && req.session.users) {//must checck for session first because testing for req.session.users._id
       if (req.session.users._id === doc[0].owner) {
         res.render('./userViews/itemPage', {
           title: 'My Listing',
@@ -23,8 +23,9 @@ exports.itemPage = function(req, res, next) {
           merchandise: doc
         });
       }
-    } else {
+    } else {//req.session is defined but req.session.users is undefined
       //fixes problem of no session ID, If i don't want them to view it without logging in just replace res.render with res.redirect('/login')
+      console.log(req.session, req.session.users)
       res.render('./publicViews/itemPage', {
         title: 'Public Listings',
         merchandise: doc

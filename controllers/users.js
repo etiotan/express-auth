@@ -7,10 +7,11 @@ var csrf = require('csurf')
 var shortid = require('shortid')
 
 exports.index = function(req, res, next) {
+  res.locals.index = {notloggedin: "Please Login", loggedin: "Logged in and ready to shop"} //sends so it can be used in views as index.notloggedin/index.loggedin
   if (req.session && req.session.users) {
-    res.render('./userViews/loggedin', {title: 'Logged In'});
+    res.render('./userViews/loggedin', {title: res.locals.index.loggedin});
   } else {
-    res.render('./publicViews/index', {title: 'Please Log in First'});
+    res.render('./publicViews/index', {title: res.locals.index.notloggedin});
   }
 }
 
