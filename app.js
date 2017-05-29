@@ -14,10 +14,9 @@ var index = require('./routes/index');
 
 
 mongoose.Promise = require('bluebird');
-// mongoose.connect('mongodb://localhost/newaut')
-mongoose.connect('
-mongodb://<dbuser>:<dbpassword>@ds155961.mlab.com:55961/heroku_nbsjk1bq
-')
+// mongoose.connect('mongodb://localhost/newauth')
+mongoose.connect('mongodb://heroku_nbsjk1bq:m4c140mpqsfv2clo7mf9a8gm3c@ds155961.mlab.com:55961/heroku_nbsjk1b')
+
 var app = express();
 
 // view engine setup
