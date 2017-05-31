@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var shortid = require('shortid');
-var Merchandise = require('./merchandise')
+var Merchandise = require('./merchandise');
 
 var User = mongoose.model('User', new Schema({
   _id: {
@@ -22,4 +22,4 @@ var User = mongoose.model('User', new Schema({
   }
 }));
 
-module.exports = User
+module.exports = User;

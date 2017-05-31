@@ -31,4 +31,4 @@ var Merchandise = mongoose.model('Merchandise', new Schema({
   }
 }));
 
-module.exports = Merchandise
+module.exports = Merchandise;
