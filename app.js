@@ -7,7 +7,7 @@ var bodyParser = require('body-parser'); //makes data avail for request.body
 var mongoose = require('mongoose');
 var session = require('client-sessions');
 var csrf = require('csurf');
-
+var methodOverride = require('method-override');
 
 var index = require('./routes/index');
 
@@ -34,9 +34,17 @@ app.use(session({
   secret: 'asdfasfasd12312',
   duration: 30*60*1000, //how long before logged out
   activeDuration: 5*60*1000
-}))
+}));
 app.use(csrf()); //must be after pasrser and session, must use for every input
 //router
+app.use(methodOverride(function(req, res){
+      if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        // look in urlencoded POST bodies and delete it
+        var method = req.body._method;
+        delete req.body._method;
+        return method;
+      }
+}));
 app.use('/', index); //must be called after csrf
 
 

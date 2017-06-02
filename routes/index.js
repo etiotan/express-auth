@@ -30,7 +30,7 @@ router.get('/logout', user.logout);
 
 //del listing
 
-router.post('/delete/:id', merchandise.deleteListing); //get because we are getting the URL
-router.post('/update/:id', merchandise.updateListing);
+router.delete('/delete/:id', merchandise.deleteListing); //get because we are getting the URL
+router.put('/update/:id', merchandise.updateListing);
 
 module.exports = router;

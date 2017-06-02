@@ -11,6 +11,7 @@ block content
     li Posted: #{merchandise[0].date}
     form(method="post" action="/delete/"+ merchandise[0].id)
       input(type="hidden", name="_csrf", value=csrfToken)
+      input(type="hidden" name="_method" value="DELETE")
       input.btn(type="submit" value="Delete") 
       //- delete should be handled with post requests, gets should never change state.
 
@@ -25,5 +26,6 @@ block content
     br
     span Price:
     input(type="text", name="price", required=true value=merchandise[0].price)
-    br  
+    br
+    input(type="hidden" name="_method" value="PUT")  
     input.btn(type="submit" value="update")
