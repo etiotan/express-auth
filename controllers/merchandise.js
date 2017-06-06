@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcryptjs');
+
 var User = require('../models/user');
 var Merchandise = require('../models/merchandise');
-var bcrypt = require('bcryptjs');
-var csrf = require('csurf');
+
 
 exports.itemPage = function(req, res, next) {
   Merchandise.find({

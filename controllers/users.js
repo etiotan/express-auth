@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcryptjs');
+var shortid = require('shortid');
+
 var User = require('../models/user');
 var Merchandise = require('../models/merchandise');
-var bcrypt = require('bcryptjs');
-var csrf = require('csurf');
-var shortid = require('shortid');
 
 exports.index = function(req, res, next) {
   res.locals.index = {notloggedin: "Please Login", loggedin: "Logged in and ready to shop"}; //sends so it can be used in views as index.notloggedin/index.loggedin
